@@ -23,15 +23,20 @@ jobs:
       - name: ci-test-repo
       outputs:
       - name: updated-repo
+      params:
+        GIT_SSH_KEY: ((git_private_key))
       run:
         path: sh
         args:
         - -exc
         - |
-          # Configura SSH per aggiungere GitHub agli host conosciuti
+          # Configura SSH per accedere al repository
           mkdir -p ~/.ssh
+          echo "$GIT_SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+          # Aggiungi GitHub agli host conosciuti
           ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/known_hosts
 
           # Inizializza Git nella directory del task
           cd ci-test-repo
