@@ -51,7 +51,8 @@ jobs:
 
           # Aggiorna il repository per sincronizzarsi con il branch principale
           git fetch origin main
-          git reset --hard FETCH_HEAD
+          git checkout main
+          git pull origin main
 
           # Verifica modifiche in progetto1
           if [ "$(git diff --name-only HEAD^ HEAD | grep progetto1/)" ]; then
