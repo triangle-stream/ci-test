@@ -18,7 +18,7 @@ jobs:
       image_resource:
         type: registry-image
         source:
-          repository: alpine/git
+          repository: alpine/git # Usa un'immagine con Git preinstallato
       inputs:
       - name: ci-test-repo
       outputs:
@@ -28,8 +28,13 @@ jobs:
         args:
         - -exc
         - |
+          # Inizializza Git nella directory del task
           cd ci-test-repo
-          
+          git init
+          git remote add origin git@github.com:triangle-stream/ci-test.git
+          git fetch origin main
+          git reset --hard FETCH_HEAD
+
           # Verifica modifiche in progetto1
           if [ "$(git diff --name-only HEAD^ HEAD | grep progetto1/)" ]; then
             echo "Modifiche rilevate in progetto1"
@@ -44,11 +49,8 @@ jobs:
             git config --global user.name "Concourse CI"
             git add progetto3/test.txt
             git commit -m "Aggiunto test.txt dopo modifiche in progetto1"
+            git push origin main
           else
             echo "Nessuna modifica rilevata in progetto1"
           fi
-  - put: ci-test-repo
-    params:
-      repository: updated-repo
-      rebase: true
 
