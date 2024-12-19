@@ -18,7 +18,7 @@ jobs:
       image_resource:
         type: registry-image
         source:
-          repository: alpine/git # Usa un'immagine con Git preinstallato
+          repository: alpine/git
       inputs:
       - name: ci-test-repo
       outputs:
@@ -28,6 +28,11 @@ jobs:
         args:
         - -exc
         - |
+          # Configura SSH per aggiungere GitHub agli host conosciuti
+          mkdir -p ~/.ssh
+          ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
           # Inizializza Git nella directory del task
           cd ci-test-repo
           git init
