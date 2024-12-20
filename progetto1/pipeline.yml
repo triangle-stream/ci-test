@@ -59,21 +59,21 @@ jobs:
           if [ "$(git diff --name-only HEAD^ HEAD | grep progetto1/)" ]; then
             echo "Modifiche rilevate in progetto1"
             
-            # Crea il file test.txt in progetto3
+            # Crea il file test-mada.txt in progetto3
             cd progetto3
-            echo "Test file created at $(date)" > test.txt
+            echo "Test file created at $(date)" > test-mada.txt
             cd ..
             
             # Commit e push delle modifiche
             git config --global user.email "ci@trianglecdn.it"
             git config --global user.name "Concourse CI"
-            git add progetto3/test.txt
-            git commit -m "Aggiunto test.txt dopo modifiche in progetto1"
+            git add progetto3/test-mada.txt
+            git commit -m "Aggiunto test-mada.txt dopo modifiche in progetto1"
             git push origin main
           else
 
+
             echo "Nessuna modifica rilevata in progetto1"
           fi
-# Madalina
 
 
