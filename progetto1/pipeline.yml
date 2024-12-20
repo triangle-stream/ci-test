@@ -48,6 +48,7 @@ jobs:
           else
             git remote add origin git@github.com:triangle-stream/ci-test.git
           fi
+          
 
           # Aggiorna il repository per sincronizzarsi con il branch principale
           git fetch origin main
@@ -72,4 +73,6 @@ jobs:
           else
             echo "Nessuna modifica rilevata in progetto1"
           fi
+# madalina
+          
 
