@@ -29,8 +29,9 @@ jobs:
         path: sh
         args:
         - -exc
-        - 
-          # Configura SSH per accedere al repository
+        - |
+          # Configura SSH per accedere al repository - NON CANCELLARE
+
           mkdir -p ~/.ssh
           echo "$GIT_SSH_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
